@@ -5,7 +5,7 @@ project(dempathy)
 
 #set empathy source code
 set(EMPATHY_SOURCES_BASE "Empathy/include/Empathy")
-include(Empathy/include/load_sources.cmake)
+include(Empathy/load_sources.cmake)
 
 set (DEMPATHY_SOURCES
         DEmpathy/DoonLight.cpp

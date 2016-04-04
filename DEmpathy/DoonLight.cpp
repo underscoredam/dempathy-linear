@@ -62,7 +62,9 @@ void DoonLight::initIrr() {
 }
 
 void DoonLight::playKeyboard(string key) {
+
     int pitch=str_to_int(key);
+
     bool sharp=str_has_character(key,'s') || str_has_character(key,'#');
 
     std::string main=str_to_lower(
@@ -78,7 +80,7 @@ void DoonLight::playKeyboard(string key) {
     if(sharp){
         final="#"+final;
     }
-//    cout<<"Playing "<<final<<endl;
+
     try{
 //        std::string file=KEYBOARD_BASE+key+".ogg";
         std::string file=empathy::getAssetPath("audio/keyboard/music/"+final+".mp3");

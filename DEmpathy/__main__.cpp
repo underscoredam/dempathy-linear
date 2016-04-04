@@ -1,3 +1,4 @@
+#include <Empathy/Utils/string_utils.h>
 #include "DEmpathy.h"
 
 
@@ -9,6 +10,7 @@ using namespace std;
 
 
 int  main(){
+
 	DEmpathy * empathy=new DEmpathy();
 
 //    CWave_Test * brain=new CWave_Test();
