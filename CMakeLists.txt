@@ -1,20 +1,20 @@
 #Specify the version being used as well as the language
 cmake_minimum_required(VERSION 2.8)
 
-project(dempathy)
+project(dempathy-linear)
 
 #set empathy source code
 set(EMPATHY_SOURCES_BASE "Empathy/include/Empathy")
 include(Empathy/load_sources.cmake)
 
 set (DEMPATHY_SOURCES
-        DEmpathy/DoonLight.cpp
-        DEmpathy/DoonLight.h
-        DEmpathy/DEmpathy.h
-        DEmpathy/DEmpathy.cpp
-        DEmpathy/__main__.cpp
-        DEmpathy/tests/CWave_Test.cpp
-        DEmpathy/tests/CWave_Test.h
+        dempathy-linear/DoonLight.cpp
+        dempathy-linear/DoonLight.h
+        dempathy-linear/DEmpathy.h
+        dempathy-linear/DEmpathy.cpp
+        dempathy-linear/__main__.cpp
+        dempathy-linear/tests/CWave_Test.cpp
+        dempathy-linear/tests/CWave_Test.h
         )
 
 
@@ -42,20 +42,15 @@ include_directories(${OPENGL_INCLUDE_DIRS})
 find_package(GLEW REQUIRED)
 include_directories(${GLEW_INCLUDE_DIRS})
 
-include_directories(DEmpathy/libs/irrKlang-64bit-1.5.0/include/)
+include_directories(dempathy-linear/libs/irrKlang-64bit-1.5.0/include/)
 include_directories(Empathy/include)
-#
-#set(SOURCES
-#        ${EMPATHY_SOURCES}
-#        ${DEMPATHY_SOURCES}
-#        )
 
 #add source files for compilation
 
-add_executable(dempathy ${DEMPATHY_SOURCES} ${EMPATHY_SOURCES})
+add_executable(dempathy-linear ${DEMPATHY_SOURCES} ${EMPATHY_SOURCES})
 
 #link the libraries
-target_link_libraries(dempathy
+target_link_libraries(dempathy-linear
 #        "${CMAKE_CURRENT_SOURCE_DIR}/Empathy/dist/libempathy.so"
         ${GLFW_STATIC_LIBRARIES}
         ${GLEW_LIBRARIES}
@@ -67,6 +62,6 @@ target_link_libraries(dempathy
         ${xxf86vm_LIBRARIES}
         ${xrandr_LIBRARIES}
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/DEmpathy/libs/irrKlang-64bit-1.5.0/bin/linux-gcc-64/libIrrKlang.so"
+        "${CMAKE_CURRENT_SOURCE_DIR}/dempathy-linear/libs/irrKlang-64bit-1.5.0/bin/linux-gcc-64/libIrrKlang.so"
         )
 
