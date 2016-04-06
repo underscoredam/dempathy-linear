@@ -10,12 +10,11 @@ include(Empathy/load_sources.cmake)
 set (DEMPATHY_SOURCES
         dempathy-linear/DoonLight.cpp
         dempathy-linear/DoonLight.h
-        dempathy-linear/DEmpathy.h
-        dempathy-linear/DEmpathy.cpp
+
         dempathy-linear/__main__.cpp
-        dempathy-linear/tests/CWave_Test.cpp
-        dempathy-linear/tests/CWave_Test.h
-        )
+
+        dempathy-linear/empathy_linear.cpp
+        dempathy-linear/empathy_linear.h dempathy-linear/Linear_MoonLight.cpp dempathy-linear/Linear_MoonLight.h)
 
 
 #include libraries

@@ -1,23 +1,22 @@
-#include <Empathy/Utils/string_utils.h>
-#include "DEmpathy.h"
-
-
-
-#include "Empathy/Brain/JSONBrain/JSONBrain.h"
-#include "Empathy/Brain/DummyTouchBrain/DummyTouchBrain.h"
+#include <Empathy/Empathy/Empathy.h>
+#include "empathy_linear.h"
 
 using namespace std;
 
-
 int  main(){
+//    empathy_linear::init();
+    empathy_linear::addJsonBrain("brains/CanonInD.json");
+    empathy_linear::addDummyTouchBrain();
+    empathy_linear::run();
 
-	DEmpathy * empathy=new DEmpathy();
+//    DEmpathy * empathy=new DEmpathy();
+//
+////    CWave_Test * brain=new CWave_Test();
+//    empathy::brain::JSONBrain * brain=new empathy::brain::JSONBrain("brains/CanonInD.json");
+//    brain->addTo(empathy);
+//
+//    (new empathy::brain::DummyTouchBrain())->addTo(empathy);
+//
+//    empathy->run();
 
-//    CWave_Test * brain=new CWave_Test();
-    empathy::brain::JSONBrain * brain=new empathy::brain::JSONBrain("brains/CanonInD.json");
-    brain->addTo(empathy);
-
-    (new empathy::brain::DummyTouchBrain())->addTo(empathy);
-
-	empathy->run();
 }
