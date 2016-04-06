@@ -1,6 +1,8 @@
 #Specify the version being used as well as the language
 cmake_minimum_required(VERSION 2.8)
 
+option(LIB "lib" OFF)
+
 project(dempathy-linear)
 
 #set empathy source code
@@ -40,8 +42,14 @@ include_directories(dempathy-linear/libs/irrKlang-64bit-1.5.0/include/)
 include_directories(Empathy/include)
 
 #add source files for compilation
+message("VALUE IS ${LIB}")
+if(LIB)
+	add_library(dempathy-linear SHARED ${DEMPATHY_SOURCES} ${EMPATHY_SOURCES})
+else()
+	add_executable(dempathy-linear ${DEMPATHY_SOURCES} ${EMPATHY_SOURCES})
+endif()
 
-add_executable(dempathy-linear ${DEMPATHY_SOURCES} ${EMPATHY_SOURCES})
+
 
 #link the libraries
 target_link_libraries(dempathy-linear

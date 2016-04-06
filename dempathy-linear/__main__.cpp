@@ -1,7 +1,7 @@
 #include <Empathy/Empathy/Empathy.h>
 #include <Empathy/empathy-linear/empathy_linear.h>
 #include <irrKlang.h>
-
+#include <GLFW/glfw3.h>
 
 using namespace std;
 
