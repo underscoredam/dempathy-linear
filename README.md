@@ -3,6 +3,7 @@
 #DEmpathy : Desktop-flavored Empathy
 [underscoredam.github.io/empathy](https://underscoredam.github.io/empathy)
 
+*(Procedural syntax for running Empathy)*
 
 Play Empathy to immerse in the pool of your own emotions!
 
