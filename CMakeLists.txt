@@ -8,13 +8,8 @@ set(EMPATHY_SOURCES_BASE "Empathy/include/Empathy")
 include(Empathy/load_sources.cmake)
 
 set (DEMPATHY_SOURCES
-        dempathy-linear/DoonLight.cpp
-        dempathy-linear/DoonLight.h
-
         dempathy-linear/__main__.cpp
-
-        dempathy-linear/empathy_linear.cpp
-        dempathy-linear/empathy_linear.h dempathy-linear/Linear_MoonLight.cpp dempathy-linear/Linear_MoonLight.h)
+        )
 
 
 #include libraries
