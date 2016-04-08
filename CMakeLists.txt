@@ -11,7 +11,7 @@ include(Empathy/load_sources.cmake)
 
 set (DEMPATHY_SOURCES
         dempathy-linear/__main__.cpp
-        )
+        Empathy/include/Empathy/MoonLight/BasicNote.cpp Empathy/include/Empathy/MoonLight/BasicNote.h)
 
 
 #include libraries
@@ -47,15 +47,17 @@ if(LIB)
 	add_library(dempathy-linear SHARED ${DEMPATHY_SOURCES})
 else()
 	message("Building executable")
-	add_executable(dempathy-linear ${DEMPATHY_SOURCES} )
+	add_executable(dempathy-linear ${DEMPATHY_SOURCES}  ${EMPATHY_SOURCES})
 endif()
 
 
 
 #link the libraries
 target_link_libraries(dempathy-linear
-        "${CMAKE_CURRENT_SOURCE_DIR}/Empathy/dist/libempathy.so"
+#        "${CMAKE_CURRENT_SOURCE_DIR}/Empathy/dist/libempathy.so"
         ${GLFW_STATIC_LIBRARIES}
+		${GLEW_LIBRARIES}
+		${OPENGL_LIBRARIES}
 
         ${x11_LIBRARIES}
         ${xi_LIBRARIES}

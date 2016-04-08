@@ -77,7 +77,7 @@ void initGlfw() {
     GLFWmonitor** monitors=glfwGetMonitors(&count);
 
     //Create a GLFW window
-    window = glfwCreateWindow((GLuint)700, (GLuint)700, "Linux Empathy", nullptr, nullptr);
+    window = glfwCreateWindow((GLuint)700, (GLuint)700, "Empathy | <3", nullptr, nullptr);
     if (window == nullptr)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -98,7 +98,7 @@ void init(){
     initGlfw();
     empathy_linear::init();
 
-    empathy_linear::addJsonBrain("brains/CanonInD.json");
+    empathy_linear::addJsonBrain("brains/test.json");
     empathy_linear::addDummyTouchBrain();
 
     engine = irrklang::createIrrKlangDevice();
@@ -116,18 +116,26 @@ void loop(){
     while(! empathy_linear::shouldClose() && !glfwWindowShouldClose(window)){
 
 
-        std::stack<PlayableItem> audioEvents=empathy_linear::getAudioEvents();
+        std::stack<empathy::moonlight::BasicNote> audioEvents= empathy_linear::getMusicalKeyboardEvents();
         while(! audioEvents.empty()){
-            PlayableItem playableItem=audioEvents.top();
+            empathy::moonlight::BasicNote playableItem=audioEvents.top();
+
+            std::string fileName=playableItem.getNote()+std::to_string(playableItem.getOctave()-1);
+            if(playableItem.isSharp()){
+                fileName="#"+fileName;
+
+            }
+
+            std::string path=empathy::getAssetPath("audio/keyboard/music/"+fileName+".mp3");
 
             try{
 
-                cout<<"Playing audio"<<playableItem.fileName<<endl;
+                cout<<"Playing audio "<<fileName<<endl;
 
-                engine->play2D(playableItem.fileName.c_str());
+                engine->play2D(path.c_str());
 
             }catch (int i){
-                cout<<"Could not play "<<playableItem.fileName<<endl;
+                cout<<"Could not play "<<path<<endl;
                 continue;
             }
 
