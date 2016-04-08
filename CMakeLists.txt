@@ -42,21 +42,20 @@ include_directories(dempathy-linear/libs/irrKlang-64bit-1.5.0/include/)
 include_directories(Empathy/include)
 
 #add source files for compilation
-message("VALUE IS ${LIB}")
 if(LIB)
-	add_library(dempathy-linear SHARED ${DEMPATHY_SOURCES} ${EMPATHY_SOURCES})
+	message("Building library")
+	add_library(dempathy-linear SHARED ${DEMPATHY_SOURCES})
 else()
-	add_executable(dempathy-linear ${DEMPATHY_SOURCES} ${EMPATHY_SOURCES})
+	message("Building executable")
+	add_executable(dempathy-linear ${DEMPATHY_SOURCES} )
 endif()
 
 
 
 #link the libraries
 target_link_libraries(dempathy-linear
-#        "${CMAKE_CURRENT_SOURCE_DIR}/Empathy/dist/libempathy.so"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Empathy/dist/libempathy.so"
         ${GLFW_STATIC_LIBRARIES}
-        ${GLEW_LIBRARIES}
-        ${OPENGL_LIBRARIES}
 
         ${x11_LIBRARIES}
         ${xi_LIBRARIES}
