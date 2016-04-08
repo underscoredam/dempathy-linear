@@ -1,5 +1,5 @@
 #include <Empathy/Empathy/Empathy.h>
-#include <Empathy/empathy-linear/empathy_linear.h>
+#include <Empathy/empathy-linear/linear_empathy.h>
 #include <irrKlang.h>
 #include <GLFW/glfw3.h>
 

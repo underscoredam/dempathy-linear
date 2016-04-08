@@ -11,7 +11,7 @@ include(Empathy/load_sources.cmake)
 
 set (DEMPATHY_SOURCES
         dempathy-linear/__main__.cpp
-        Empathy/include/Empathy/MoonLight/BasicNote.cpp Empathy/include/Empathy/MoonLight/BasicNote.h)
+        )
 
 
 #include libraries
