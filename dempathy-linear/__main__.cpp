@@ -3,6 +3,21 @@
 #include <irrKlang.h>
 #include <GLFW/glfw3.h>
 
+
+#define FULL_SCREEN true
+
+#if FULL_SCREEN
+ #define RENDER_SIZE 700
+ #define SC_SIZE_X 1366
+ #define SC_SIZE_Y 768
+#else
+ #define RENDER_SIZE 700
+ #define SC_SIZE_X 700
+ #define SC_SIZE_Y 700
+#endif
+
+
+
 using namespace std;
 
 static GLFWwindow * window;
@@ -23,7 +38,7 @@ void createClickEvent(int button=GLFW_MOUSE_BUTTON_LEFT){
     }
 
     event.putDouble(EMPATHY_MOUSE_XPOS,mouseX);
-    event.putDouble(EMPATHY_MOUSE_YPOS,700-mouseY);
+    event.putDouble(EMPATHY_MOUSE_YPOS,RENDER_SIZE-mouseY);
 
     empathy::radio::BroadcastStation::emit(event);
 }
@@ -73,8 +88,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 }
 
 void mouse_position_callback(GLFWwindow *window, double xpos, double ypos) {
-    mouseX=xpos;
-    mouseY=ypos;
+
+    mouseX= xpos -(SC_SIZE_X-RENDER_SIZE)/2;;
+
+    mouseY = ypos - (SC_SIZE_Y-RENDER_SIZE)/2;
 }
 
 void initGlfw() {
@@ -91,7 +108,8 @@ void initGlfw() {
     GLFWmonitor** monitors=glfwGetMonitors(&count);
 
     //Create a GLFW window
-    window = glfwCreateWindow((GLuint)700, (GLuint)700, "Empathy | <3", nullptr, nullptr);
+    window = glfwCreateWindow((GLuint)SC_SIZE_X, (GLuint)SC_SIZE_Y, "Empathy | <3",
+                              FULL_SCREEN ? glfwGetPrimaryMonitor(): nullptr, nullptr);
     if (window == nullptr)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -108,9 +126,14 @@ void initGlfw() {
 }
 
 void init(){
+    GLFWmonitor * glfWmonitor=glfwGetPrimaryMonitor();
 
     initGlfw();
     empathy_linear::init();
+    empathy_linear::setScreenMargins( (SC_SIZE_X-RENDER_SIZE)/2 , (SC_SIZE_Y-RENDER_SIZE)/2);
+
+    empathy_linear::setScreenSize(RENDER_SIZE);
+
 
     empathy_linear::addJsonBrain("brains/test.json");
     empathy_linear::addDummyTouchBrain();
