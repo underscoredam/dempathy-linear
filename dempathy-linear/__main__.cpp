@@ -9,21 +9,35 @@ static GLFWwindow * window;
 static GLfloat mouseX,mouseY;
 irrklang::ISoundEngine* engine;
 
+static GLdouble lastPressTime;
+static GLdouble thresholdTime=0.2;
+static GLboolean mousePressed=GL_FALSE;
+
+void createClickEvent(int button=GLFW_MOUSE_BUTTON_LEFT){
+    empathy::radio::Event event(EMPATHY_EVENT_ACTION_NONE);
+
+    if(button==GLFW_MOUSE_BUTTON_LEFT ){
+        event=empathy::radio::Event(EMPATHY_EVENT_INPUT_MOUSE_LEFT_KEY_PRESS);
+    }else if(button==GLFW_MOUSE_BUTTON_RIGHT){
+        event=empathy::radio::Event(EMPATHY_EVENT_INPUT_MOUSE_RIGHT_KEY_PRESS);
+    }
+
+    event.putDouble(EMPATHY_MOUSE_XPOS,mouseX);
+    event.putDouble(EMPATHY_MOUSE_YPOS,700-mouseY);
+
+    empathy::radio::BroadcastStation::emit(event);
+}
 void mouse_input_callback(GLFWwindow *window, int button, int action, int mods) {
     if(action==GLFW_PRESS){
-        empathy::radio::Event event(EMPATHY_EVENT_ACTION_NONE);
+        createClickEvent(button);
 
-        if(button==GLFW_MOUSE_BUTTON_LEFT ){
-            event=empathy::radio::Event(EMPATHY_EVENT_INPUT_MOUSE_LEFT_KEY_PRESS);
-        }else if(button==GLFW_MOUSE_BUTTON_RIGHT){
-            event=empathy::radio::Event(EMPATHY_EVENT_INPUT_MOUSE_RIGHT_KEY_PRESS);
-        }
+        lastPressTime=glfwGetTime();
 
-        event.putDouble(EMPATHY_MOUSE_XPOS,mouseX);
-        event.putDouble(EMPATHY_MOUSE_YPOS,700-mouseY);
+        mousePressed=GL_TRUE;
 
-
-        empathy::radio::BroadcastStation::emit(event);
+    }else if(action==GLFW_RELEASE){
+        lastPressTime=0;
+        mousePressed=GL_FALSE;
     }
 }
 
@@ -117,7 +131,9 @@ void loop(){
 
 
         std::stack<empathy::moonlight::BasicNote> audioEvents= empathy_linear::getMusicalKeyboardEvents();
+
         while(! audioEvents.empty()){
+
             empathy::moonlight::BasicNote playableItem=audioEvents.top();
 
             std::string fileName=playableItem.getNote()+std::to_string(playableItem.getOctave()-1);
@@ -129,11 +145,9 @@ void loop(){
             std::string path=empathy::getAssetPath("audio/keyboard/music/"+fileName+".mp3");
 
             try{
-
                 cout<<"Playing audio "<<fileName<<endl;
 
                 engine->play2D(path.c_str());
-
             }catch (int i){
                 cout<<"Could not play "<<path<<endl;
                 continue;
@@ -142,12 +156,16 @@ void loop(){
             audioEvents.pop();
         }
 
+        if(mousePressed && glfwGetTime()-lastPressTime>thresholdTime){
+            createClickEvent();
+        }
+
 
         glfwPollEvents();
 
         empathy_linear::loop();
 
-        empathy_linear::setTime(glfwGetTime());
+        empathy_linear::setTime((GLfloat ) glfwGetTime());
 
 
         glfwSwapBuffers(window);
