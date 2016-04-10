@@ -10,8 +10,7 @@ set(EMPATHY_SOURCES_BASE "Empathy/include/Empathy")
 include(Empathy/load_sources.cmake)
 
 set (DEMPATHY_SOURCES
-        dempathy-linear/__main__.cpp
-        )
+        dempathy-linear/__main__.cpp)
 
 
 #include libraries

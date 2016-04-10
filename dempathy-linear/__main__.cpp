@@ -4,14 +4,14 @@
 #include <GLFW/glfw3.h>
 
 
-#define FULL_SCREEN true
+#define FULL_SCREEN false
 
 #if FULL_SCREEN
- #define RENDER_SIZE 700
+ #define RENDER_SIZE 768
  #define SC_SIZE_X 1366
  #define SC_SIZE_Y 768
 #else
- #define RENDER_SIZE 700
+ #define RENDER_SIZE 690
  #define SC_SIZE_X 700
  #define SC_SIZE_Y 700
 #endif
@@ -134,8 +134,7 @@ void init(){
 
     empathy_linear::setScreenSize(RENDER_SIZE);
 
-
-    empathy_linear::addJsonBrain("brains/test.json");
+    empathy_linear::addJsonBrain("brains/CanonInD.json");
     empathy_linear::addDummyTouchBrain();
 
     engine = irrklang::createIrrKlangDevice();
@@ -159,7 +158,8 @@ void loop(){
 
             empathy::moonlight::BasicNote playableItem=audioEvents.top();
 
-            std::string fileName=playableItem.getNote()+std::to_string(playableItem.getOctave()-1);
+            std::string fileName=playableItem.getNote();
+            fileName += playableItem.getOctave()<=1?"":std::to_string(playableItem.getOctave()-1);
             if(playableItem.isSharp()){
                 fileName="#"+fileName;
 
