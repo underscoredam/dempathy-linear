@@ -151,11 +151,9 @@ void init(){
 void loop(){
     while(! empathy_linear::shouldClose() && !glfwWindowShouldClose(window)){
 
-
         std::stack<empathy::moonlight::BasicNote> audioEvents= empathy_linear::getMusicalKeyboardEvents();
 
         while(! audioEvents.empty()){
-
             empathy::moonlight::BasicNote playableItem=audioEvents.top();
 
             std::string fileName=playableItem.getNote();
@@ -168,7 +166,7 @@ void loop(){
             std::string path=empathy::getAssetPath("audio/keyboard/music/"+fileName+".mp3");
 
             try{
-                cout<<"Playing audio "<<fileName<<endl;
+//                cout<<"Playing audio "<<fileName<<endl;
 
                 engine->play2D(path.c_str());
             }catch (int i){
@@ -179,9 +177,11 @@ void loop(){
             audioEvents.pop();
         }
 
+
         if(mousePressed && glfwGetTime()-lastPressTime>thresholdTime){
             createClickEvent();
         }
+
 
 
         glfwPollEvents();
@@ -189,7 +189,6 @@ void loop(){
         empathy_linear::loop();
 
         empathy_linear::setTime((GLfloat ) glfwGetTime());
-
 
         glfwSwapBuffers(window);
     }
