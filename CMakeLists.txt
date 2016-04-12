@@ -1,13 +1,11 @@
 #Specify the version being used as well as the language
 cmake_minimum_required(VERSION 2.8)
 
-option(LIB "lib" OFF)
-
 project(dempathy-linear)
 
 #set empathy source code
-set(EMPATHY_SOURCES_BASE "Empathy/include/Empathy")
-include(Empathy/load_sources.cmake)
+set(EMPATHY_SOURCES_BASE "empathy/include/Empathy")
+include(empathy/load_sources.cmake)
 
 set (DEMPATHY_SOURCES
         dempathy-linear/__main__.cpp)
@@ -38,22 +36,14 @@ find_package(GLEW REQUIRED)
 include_directories(${GLEW_INCLUDE_DIRS})
 
 include_directories(dempathy-linear/libs/irrKlang-64bit-1.5.0/include/)
-include_directories(Empathy/include)
+include_directories(empathy/include)
 
 #add source files for compilation
-if(LIB)
-	message("Building library")
-	add_library(dempathy-linear SHARED ${DEMPATHY_SOURCES})
-else()
-	message("Building executable")
-	add_executable(dempathy-linear ${DEMPATHY_SOURCES}  ${EMPATHY_SOURCES})
-endif()
-
-
+add_executable(dempathy-linear ${DEMPATHY_SOURCES}  ${EMPATHY_SOURCES})
 
 #link the libraries
 target_link_libraries(dempathy-linear
-#        "${CMAKE_CURRENT_SOURCE_DIR}/Empathy/dist/libempathy.so"
+#        "${CMAKE_CURRENT_SOURCE_DIR}/empathy/dist/libempathy.so"
         ${GLFW_STATIC_LIBRARIES}
 		${GLEW_LIBRARIES}
 		${OPENGL_LIBRARIES}
