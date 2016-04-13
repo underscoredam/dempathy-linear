@@ -4,5 +4,9 @@ mkdir -p dist #create dist directory if not exists
 
 cd dist
 
-cmake .. && make
+if [ "$1" = "release" ]; then
+   cmake -DCMAKE_BUILD_TYPE=Release .. && make
+else
+  cmake .. && make
+fi
 

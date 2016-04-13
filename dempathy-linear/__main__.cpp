@@ -4,7 +4,7 @@
 #include <GLFW/glfw3.h>
 
 
-#define FULL_SCREEN false
+#define FULL_SCREEN true
 
 #if FULL_SCREEN
  #define RENDER_SIZE 768
@@ -104,8 +104,6 @@ void initGlfw() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-    int count;
-    GLFWmonitor** monitors=glfwGetMonitors(&count);
 
     //Create a GLFW window
     window = glfwCreateWindow((GLuint)SC_SIZE_X, (GLuint)SC_SIZE_Y, "Empathy | <3",
@@ -126,8 +124,6 @@ void initGlfw() {
 }
 
 void init(){
-    GLFWmonitor * glfWmonitor=glfwGetPrimaryMonitor();
-
     initGlfw();
     empathy_linear::init();
     empathy_linear::setScreenMargins( (SC_SIZE_X-RENDER_SIZE)/2 , (SC_SIZE_Y-RENDER_SIZE)/2);
