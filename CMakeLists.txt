@@ -38,6 +38,9 @@ include_directories(${GLEW_INCLUDE_DIRS})
 include_directories(dempathy-linear/libs/irrKlang-64bit-1.5.0/include/)
 include_directories(empathy/include)
 
+pkg_search_module(MUPARSER REQUIRED muparser)
+include_directories(${MUPARSER_INCLUDE_DIRS})
+
 #add source files for compilation
 add_executable(dempathy-linear ${DEMPATHY_SOURCES}  ${EMPATHY_SOURCES})
 
@@ -47,6 +50,7 @@ target_link_libraries(dempathy-linear
         ${GLFW_STATIC_LIBRARIES}
 		${GLEW_LIBRARIES}
 		${OPENGL_LIBRARIES}
+		${MUPARSER_LIBRARIES}
 
         ${x11_LIBRARIES}
         ${xi_LIBRARIES}

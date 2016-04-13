@@ -2,9 +2,10 @@
 #include <Empathy/empathy-linear/linear_empathy.h>
 #include <irrKlang.h>
 #include <GLFW/glfw3.h>
+#include <muParser.h>
 
 
-#define FULL_SCREEN true
+#define FULL_SCREEN false
 
 #if FULL_SCREEN
  #define RENDER_SIZE 768
@@ -130,7 +131,7 @@ void init(){
 
     empathy_linear::setScreenSize(RENDER_SIZE);
 
-    empathy_linear::addJsonBrain("brains/CanonInD.json");
+    empathy_linear::addJsonBrain("brains/test.json");
     empathy_linear::addDummyTouchBrain();
 
     engine = irrklang::createIrrKlangDevice();
