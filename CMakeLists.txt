@@ -11,8 +11,8 @@ set (DEMPATHY_SOURCES
         dempathy-linear/__main__.cpp)
 
 
-#include libraries
-find_package(PkgConfig REQUIRED)
+include(empathy/load_libraries.cmake)
+
 
 pkg_search_module(GLFW REQUIRED glfw3)
 include_directories(${GLFW_INCLUDE_DIRS})
@@ -29,17 +29,8 @@ include_directories(${xi_INCLUDE_DIRS})
 pkg_search_module(xxf86vm REQUIRED xxf86vm)
 include_directories(${xxf86vm_INCLUDE_DIRS})
 
-find_package(OpenGL REQUIRED)
-include_directories(${OPENGL_INCLUDE_DIRS})
-
-find_package(GLEW REQUIRED)
-include_directories(${GLEW_INCLUDE_DIRS})
-
 include_directories(dempathy-linear/libs/irrKlang-64bit-1.5.0/include/)
 include_directories(empathy/include)
-
-pkg_search_module(MUPARSER REQUIRED muparser)
-include_directories(${MUPARSER_INCLUDE_DIRS})
 
 #add source files for compilation
 add_executable(dempathy-linear ${DEMPATHY_SOURCES}  ${EMPATHY_SOURCES})
@@ -48,6 +39,7 @@ add_executable(dempathy-linear ${DEMPATHY_SOURCES}  ${EMPATHY_SOURCES})
 target_link_libraries(dempathy-linear
 #        "${CMAKE_CURRENT_SOURCE_DIR}/empathy/dist/libempathy.so"
         ${GLFW_STATIC_LIBRARIES}
+        ${EMPATHY_DEPENDENCY_LIBRARIES}
 		${GLEW_LIBRARIES}
 		${OPENGL_LIBRARIES}
 		${MUPARSER_LIBRARIES}
