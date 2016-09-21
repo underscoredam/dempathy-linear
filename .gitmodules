@@ -1,0 +1,3 @@
+[submodule "empathy"]
+	path = empathy
+	url = https://github.com/underscoredam/empathy
