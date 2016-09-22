@@ -41,6 +41,8 @@ install_manifest.txt
 
 
 /tmp #temporary files
+/temp
+!/temp/.gitignore
 /.idea/*
 /.idea/dictionaries/*
 /.idea
