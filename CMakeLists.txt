@@ -33,7 +33,8 @@ include_directories(dempathy-linear/libs/irrKlang-64bit-1.5.0/include/)
 include_directories(empathy/include)
 
 #add source files for compilation
-add_executable(dempathy-linear ${DEMPATHY_SOURCES}  ${EMPATHY_SOURCES} empathy/include/Empathy/Brain/EmotionBrain/EmotionBrain.cpp empathy/include/Empathy/Brain/EmotionBrain/EmotionBrain.h)
+add_executable(dempathy-linear ${DEMPATHY_SOURCES} ${EMPATHY_SOURCES} )
+
 
 #link the libraries
 target_link_libraries(dempathy-linear
