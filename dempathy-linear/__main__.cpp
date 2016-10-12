@@ -132,6 +132,7 @@ void init(){
     empathy_linear::setScreenSize(RENDER_SIZE);
 
     empathy_linear::addJsonBrain("brains/test.json");
+    //empathy_linear::addJsonBrain("brains/CanonInD.json");
     empathy_linear::addEmotionBrain();
 
     empathy_linear::addDummyTouchBrain();
