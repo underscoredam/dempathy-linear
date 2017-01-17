@@ -3,6 +3,7 @@
 #include <irrKlang.h>
 #include <GLFW/glfw3.h>
 #include <muParser.h>
+#include <Empathy/Brain/CustomLogic/Calming_1.h>
 
 
 #define FULL_SCREEN false
@@ -70,7 +71,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         return;
     }
 
-    cout<<"KEY callback"<<endl;
     std::string myAction="";
     if(action==GLFW_PRESS){
         myAction=EMPATHY_EVENT_INPUT_KEY_PRESS;
@@ -79,8 +79,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     }else if(action==GLFW_REPEAT){
         myAction=EMPATHY_EVENT_INPUT_KEY_REPEAT;
     }
+
     if(myAction != ""){
-        empathy::radio::Event event=empathy::radio::Event(myAction);
+        empathy::radio::Event event(myAction);
         event.putInt(EMPATHY_EVENT_INPUT_KEY,key);
 
         empathy::radio::BroadcastStation::emit(event);
@@ -131,9 +132,11 @@ void init(){
 
     empathy_linear::setScreenSize(RENDER_SIZE);
 
-    empathy_linear::addJsonBrain("brains/test.json");
-    //empathy_linear::addJsonBrain("brains/CanonInD.json");
-    empathy_linear::addEmotionBrain();
+
+//    empathy_linear::addJsonBrain("brains/Calming_1.json");
+    empathy_linear::addBrain(new empathy::brain::Calming_1());
+//    empathy_linear::addJsonBrain("brains/CanonInD.json");
+//    empathy_linear::addEmotionBrain();
 
     empathy_linear::addDummyTouchBrain();
 
