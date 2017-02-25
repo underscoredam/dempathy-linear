@@ -40,7 +40,7 @@ include_directories(empathy/include)
 add_executable(dempathy-linear ${DEMPATHY_SOURCES} ${EMPATHY_SOURCES} )
 
 
-IF(${CMAKE_SYSTEM_NAME} STREQUAL "linux")
+IF(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 	set (PLATFORM_LIBRARIES
 		"${CMAKE_CURRENT_SOURCE_DIR}/dempathy-linear/libs/irrKlang-64bit-1.5.0/bin/linux-gcc-64/libIrrKlang.so"
 		)
