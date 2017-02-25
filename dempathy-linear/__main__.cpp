@@ -1,9 +1,9 @@
-#include <Empathy/Empathy/Empathy.h>
-#include <Empathy/empathy-linear/linear_empathy.h>
+#include "../../empathy/include/Empathy/Empathy/Empathy.h"
+#include "../../empathy/include/Empathy/empathy-linear/linear_empathy.h"
 #include <irrKlang.h>
 #include <GLFW/glfw3.h>
 #include <muParser.h>
-#include <Empathy/Brain/CustomLogic/Calming_1.h>
+#include "../../empathy/include/Empathy/Brain/CustomLogic/Calming_1.h"
 
 
 #define FULL_SCREEN false
@@ -104,7 +104,8 @@ void initGlfw() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+  //glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 
     //Create a GLFW window
@@ -133,7 +134,7 @@ void init(){
     empathy_linear::setScreenSize(RENDER_SIZE);
 
 
-//    empathy_linear::addJsonBrain("brains/Calming_1.json");
+//	empathy_linear::addJsonBrain("brains/CanonInD.json");
     empathy_linear::addBrain(new empathy::brain::Calming_1());
 //    empathy_linear::addJsonBrain("brains/CanonInD.json");
 //    empathy_linear::addEmotionBrain();

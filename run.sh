@@ -5,9 +5,9 @@ if [ ! -f ./dist/dempathy-linear ]; then
     ./build.sh
 fi
 
-if [ ! -f ./ikpMP3.so ]; then
+if [ ! -f ./ikpMP3.dylib]; then
   echo "NOT FOUND ikpMP3 LIBRARY";
-  ln -sf $(pwd)/dempathy-linear/libs/irrKlang-64bit-1.5.0/bin/linux-gcc-64/ikpMP3.so  ./ikpMP3.so
+  ln -sf $(pwd)/linear/libs/irrKlang-64bit-1.5.0/bin/macosx-gcc/ikpMP3.dylib  ./ikpMP3.so
 else
   echo "FOUND MP3 LIBRARY"
 fi
