@@ -1,10 +1,10 @@
-
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
 Makefile
 cmake_install.cmake
 install_manifest.txt
+cmake-build-debug
 
 *~
 /*~
@@ -21,9 +21,10 @@ install_manifest.txt
 
 
 # Compiled Dynamic libraries
-#*.so
-#*.dylib
-#*.dll
+*.so
+*.dylib
+*.dll
+!/dempathy-linear/dempathy-linear/libs/irrKlang-64bit-1.5.0/bin
 
 # Fortran module files
 *.mod
@@ -46,9 +47,9 @@ install_manifest.txt
 /.idea/*
 /.idea/dictionaries/*
 /.idea
-
+*.swp
 /docs
-
+.DS_Store
 
 /dist/*
 /ikpMP3.so
