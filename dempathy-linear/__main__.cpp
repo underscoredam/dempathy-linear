@@ -135,7 +135,7 @@ void init(){
 
 
 //    empathy_linear::addJsonBrain("brains/Calming_1.json");
-    empathy_linear::addBrain(new empathy::brain::Calming_1());
+	empathy_linear::addBrain(new empathy::brain::Calming_1());
 //    empathy_linear::addJsonBrain("brains/CanonInD.json");
 //    empathy_linear::addEmotionBrain();
 
