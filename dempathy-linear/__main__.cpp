@@ -25,7 +25,6 @@ using namespace std;
 static GLFWwindow * window;
 static GLfloat mouseX,mouseY;
 irrklang::ISoundEngine* engine;
-
 static GLdouble lastPressTime;
 static GLdouble thresholdTime=0.2;
 static GLboolean mousePressed=GL_FALSE;
@@ -44,6 +43,7 @@ void createClickEvent(int button=GLFW_MOUSE_BUTTON_LEFT){
 
     empathy::radio::BroadcastStation::emit(event);
 }
+
 void mouse_input_callback(GLFWwindow *window, int button, int action, int mods) {
     if(action==GLFW_PRESS){
         createClickEvent(button);
@@ -58,30 +58,32 @@ void mouse_input_callback(GLFWwindow *window, int button, int action, int mods) 
     }
 }
 
+void character_callback(GLFWwindow* window, unsigned int codepoint){
+
+    std::string myAction=EMPATHY_EVENT_INPUT_KEY_PRESS;
+
+    empathy::radio::Event event(myAction);
+    event.putInt(EMPATHY_EVENT_INPUT_KEY, codepoint);
+
+    empathy::radio::BroadcastStation::emit(event);
+}
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
 //    std::cout<<"key call back received"<<action<<std::endl;
 
     // When a user presses the escape key, we set the WindowShouldClose property to true,
     // closing the application
 
+
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS){
-//            glfwSetWindowShouldClose(instance->window, GL_TRUE);
+//        glfwSetWindowShouldClose(instance->window, GL_TRUE);
         empathy_linear::makeReadyToClose();
 
         return;
     }
 
-    std::string myAction="";
-    if(action==GLFW_PRESS){
-        myAction=EMPATHY_EVENT_INPUT_KEY_PRESS;
-    }else if(action==GLFW_RELEASE){
-        myAction=EMPATHY_EVENT_INPUT_KEY_RELEASE;
-    }else if(action==GLFW_REPEAT){
-        myAction=EMPATHY_EVENT_INPUT_KEY_REPEAT;
-    }
-
-    if(myAction != ""){
-        empathy::radio::Event event(myAction);
+    if(key == GLFW_KEY_ENTER){
+        empathy::radio::Event event(EMPATHY_EVENT_INPUT_KEY_PRESS);
         event.putInt(EMPATHY_EVENT_INPUT_KEY,key);
 
         empathy::radio::BroadcastStation::emit(event);
@@ -119,6 +121,8 @@ void initGlfw() {
     }
 
     glfwMakeContextCurrent(window);
+
+    glfwSetCharCallback(window, character_callback);
 
     //set event receiver call backs.
     glfwSetKeyCallback(window, key_callback);
@@ -197,6 +201,7 @@ void loop(){
         glfwSwapBuffers(window);
     }
 }
+
 void flush(){
     engine->drop();
 
