@@ -69,26 +69,27 @@ void character_callback(GLFWwindow* window, unsigned int codepoint){
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
-//    std::cout<<"key call back received"<<action<<std::endl;
 
     // When a user presses the escape key, we set the WindowShouldClose property to true,
     // closing the application
-
-
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS){
 //        glfwSetWindowShouldClose(instance->window, GL_TRUE);
         empathy_linear::makeReadyToClose();
 
         return;
     }
-
-    if(key == GLFW_KEY_ENTER){
-        empathy::radio::Event event(EMPATHY_EVENT_INPUT_KEY_PRESS);
-        event.putInt(EMPATHY_EVENT_INPUT_KEY,key);
-
-        empathy::radio::BroadcastStation::emit(event);
+    else if(action == GLFW_PRESS || action == GLFW_REPEAT ) {
+        if (key == GLFW_KEY_ENTER) {
+            empathy::radio::Event event(EMPATHY_EVENT_INPUT_KEY_PRESS);
+            event.putInt(EMPATHY_EVENT_INPUT_KEY, key);
+            empathy::radio::BroadcastStation::emit(event);
+        }
+        else if (key == GLFW_KEY_BACKSPACE) {
+            empathy::radio::Event event(EMPATHY_EVENT_INPUT_KEY_PRESS);
+            event.putInt(EMPATHY_EVENT_INPUT_KEY, key);
+            empathy::radio::BroadcastStation::emit(event);
+        }
     }
-
 }
 
 void mouse_position_callback(GLFWwindow *window, double xpos, double ypos) {
