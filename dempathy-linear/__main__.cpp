@@ -157,13 +157,11 @@ void init(){
     engine->setSoundVolume(0.4f);
 }
 
-void loop(){
-    while(! empathy_linear::shouldClose() && !glfwWindowShouldClose(window)){
+void checkAudioEvents(){
+        std::stack<empathy::moonlight::BasicNote> keyboardAudioEvents= empathy_linear::getMusicalKeyboardEvents();
 
-        std::stack<empathy::moonlight::BasicNote> audioEvents= empathy_linear::getMusicalKeyboardEvents();
-
-        while(! audioEvents.empty()){
-            empathy::moonlight::BasicNote playableItem=audioEvents.top();
+        while(! keyboardAudioEvents.empty()){
+            empathy::moonlight::BasicNote playableItem=keyboardAudioEvents.top();
 
             std::string fileName=playableItem.getNote();
             fileName += playableItem.getOctave()<=1?"":std::to_string(playableItem.getOctave()-1);
@@ -183,9 +181,32 @@ void loop(){
                 continue;
             }
 
-            audioEvents.pop();
+            keyboardAudioEvents.pop();
         }
 
+
+    std::stack<std::string> audioEvents = empathy_linear::getMusicalEvents();
+
+    while(! audioEvents.empty()){
+        std::string fileName=audioEvents.top();
+
+        std::string path=empathy::getAssetPath("audio/"+fileName);
+
+        try{
+            engine->play2D(path.c_str());
+        }catch (int i){
+            cout<<"Could not play "<<path<<endl;
+        }
+
+        audioEvents.pop();
+    }
+
+
+}
+void loop(){
+    while(! empathy_linear::shouldClose() && !glfwWindowShouldClose(window)){
+
+        checkAudioEvents();
 
         if(mousePressed && glfwGetTime()-lastPressTime>thresholdTime){
             createClickEvent();
